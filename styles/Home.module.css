@@ -1,0 +1,48 @@
+/* general styling */
+.red {
+  color: #dc3545;
+}
+
+.yellow {
+  color: #ffc107;
+}
+
+.locobukz {
+  width: 150px;
+  height: 150px;
+}
+
+/* components */
+.claimbtn {
+  color: white;
+  font-family: "Proxima-nova", sans-serif !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.claimbtn:hover {
+  opacity: 0.8;
+}
+
+.claimbtn:focus {
+  scale: 1.0125;
+}
+
+/* utilities */
+.container {
+  width: min(100% - 2rem, 60rem);
+  min-height: 100dvh;
+  margin-inline: auto;
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  align-items: center;
+}
+
+.imageWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}

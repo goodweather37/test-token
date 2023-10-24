@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// vercel
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model WalletAddresses {
+  id            Int         @default(autoincrement())
+  walletAddress String      @id @unique
+  reward1      Int
+  reward2      Int
+  reward3      Int
+  reward4      Int
+  reward5      Int
+  reward6      Int
+  reward7      Int
+  reward8      Int
+  reward9      Int
+  reward10     Int
+  reward11     Int
+  reward12     Int
+  reward13     Int
+  reward14     Int
+  reward15     Int
+  reward16     Int
+  reward17     Int
+  reward18     Int
+  reward19     Int
+  reward20     Int
+  reward21     Int
+  reward22     Int
+  reward23     Int
+  reward24     Int
+  reward25     Int
+  reward26     Int
+  createdAt     DateTime    @default(now())
+}
