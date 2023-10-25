@@ -43,7 +43,7 @@ const Home: NextPage = ({ wallets}) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const wallets = await prisma.walletAddresses.findMany();
 
   return {
