@@ -1,6 +1,10 @@
 import type { AppProps } from "next/app";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
+import NProgress from "nprogress";
+import 'nprogress/nprogress.css';
 import "../styles/globals.css";
+import { useEffect } from "react";
+import { Router } from "next/router";
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
@@ -8,6 +12,18 @@ import "../styles/globals.css";
 const activeChain = "mumbai";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    Router.events.on('routeChangeStart', NProgress.start);
+    Router.events.on('routeChangeComplete', NProgress.done)
+    Router.events.on('routeChangeError', NProgress.done)
+
+    return () => {
+      Router.events.off('routeChangeStart', NProgress.start)
+      Router.events.off('routeChangeComplete', NProgress.done)
+      Router.events.off('routeChangeError', NProgress.done)
+    }
+  }, []);
+  
   return (
     <ThirdwebProvider
       clientId={process.env.CLIENT_ID}
