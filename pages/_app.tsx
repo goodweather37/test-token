@@ -17,7 +17,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    router.isReady && setLoading(false);
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 5000)
+    
   }, []);
 
   // useEffect(() => {
