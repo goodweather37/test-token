@@ -7,6 +7,8 @@ import locobukz from "../assets/locobukz.png";
 import { checkEligibilityMain } from "../utils/wallet-check/checkEligibilityMain";
 import Claim from "../components/Claim";
 
+const isServerReq = (req : any) => !req.url.startsWith('/_next');
+
 // @ts-ignore
 const Home: NextPage = ({ wallets}) => {
   const reward = 1;
@@ -43,8 +45,9 @@ const Home: NextPage = ({ wallets}) => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  const wallets = await prisma.walletAddresses.findMany();
+// @ts-ignore
+export async function getServerSideProps({ req }) {
+  const wallets = isServerReq(req) ? await prisma.walletAddresses.findMany() : null;
 
   return {
     props: { 
