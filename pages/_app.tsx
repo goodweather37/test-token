@@ -3,8 +3,8 @@ import { ThirdwebProvider } from "@thirdweb-dev/react";
 import NProgress from "nprogress";
 import 'nprogress/nprogress.css';
 import "../styles/globals.css";
-import { useEffect } from "react";
-import { Router } from "next/router";
+import { useEffect, useState } from "react";
+import { Router, useRouter } from "next/router";
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
@@ -12,20 +12,41 @@ import { Router } from "next/router";
 const activeChain = "mumbai";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    Router.events.on('routeChangeStart', NProgress.start);
-    Router.events.on('routeChangeComplete', NProgress.done)
-    Router.events.on('routeChangeError', NProgress.done)
+  const [loading, setLoading] = useState(false);
 
-    return () => {
-      Router.events.off('routeChangeStart', NProgress.start)
-      Router.events.off('routeChangeComplete', NProgress.done)
-      Router.events.off('routeChangeError', NProgress.done)
-    }
+  const router = useRouter();
+
+  useEffect(() => {
+    router.isReady && setLoading(false);
   }, []);
-  
+
+  // useEffect(() => {
+  //   const start = () => {
+  //     console.log("start");
+  //     setLoading(true);
+  //   }
+  //   const end = () => {
+  //     console.log("end");
+  //     setLoading(false);
+  //   }
+
+  //   Router.events.on('routeChangeStart', start);
+  //   Router.events.on('routeChangeComplete', end)
+  //   Router.events.on('routeChangeError', end)
+
+  //   return () => {
+  //     Router.events.off('routeChangeStart', start)
+  //     Router.events.off('routeChangeComplete', end)
+  //     Router.events.off('routeChangeError', end)
+  //   }
+  // }, []);
+
   return (
-    <ThirdwebProvider
+    <>
+      {loading ? (
+      <p>Loading</p>
+    ) : (
+      <ThirdwebProvider
       clientId={process.env.CLIENT_ID}
       // sdkOptions={{
       //   gasless: {
@@ -38,6 +59,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     >
       <Component {...pageProps} />
     </ThirdwebProvider>
+    )}
+    </>
   );
 }
 
