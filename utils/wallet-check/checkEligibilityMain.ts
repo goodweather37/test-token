@@ -8,7 +8,7 @@ export function checkEligibilityMain(wallets: any, address: string, reward: numb
             // @ts-ignore
             const found = wallets.find(wallet => wallet.walletAddress === address);
     
-            if (found === "undefined") {
+            if (found === undefined) {
                 eligible = true;
             } else if (found) {
                 if (found.walletAddress === address && found.reward1 === 0) {
@@ -27,7 +27,7 @@ export function checkEligibilityMain(wallets: any, address: string, reward: numb
             // @ts-ignore
             const found = wallets.find(wallet => wallet.walletAddress === address);
     
-            if (found === "undefined") {
+            if (found === undefined) {
                 eligible = true;
             } else if (found) {
                 if (found.walletAddress === address && found.reward2 === 0) {
@@ -46,7 +46,7 @@ export function checkEligibilityMain(wallets: any, address: string, reward: numb
             // @ts-ignore
             const found = wallets.find(wallet => wallet.walletAddress === address);
     
-            if (found === "undefined") {
+            if (found === undefined) {
                 eligible = true;
             } else if (found) {
                 if (found.walletAddress === address && found.reward3 === 0) {
@@ -65,7 +65,7 @@ export function checkEligibilityMain(wallets: any, address: string, reward: numb
             // @ts-ignore
             const found = wallets.find(wallet => wallet.walletAddress === address);
     
-            if (found === "undefined") {
+            if (found === undefined) {
                 eligible = true;
             } else if (found) {
                 if (found.walletAddress === address && found.reward4 === 0) {
@@ -84,7 +84,7 @@ export function checkEligibilityMain(wallets: any, address: string, reward: numb
             // @ts-ignore
             const found = wallets.find(wallet => wallet.walletAddress === address);
     
-            if (found === "undefined") {
+            if (found === undefined) {
                 eligible = true;
             } else if (found) {
                 if (found.walletAddress === address && found.reward5 === 0) {

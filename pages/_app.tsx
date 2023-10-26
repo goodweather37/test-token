@@ -5,6 +5,7 @@ import 'nprogress/nprogress.css';
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
 import { Router, useRouter } from "next/router";
+import usePageLoad from "../utils/useLoading";
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
@@ -13,8 +14,6 @@ const activeChain = "mumbai";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
-
-  const router = useRouter();
 
   // useEffect(() => {
   //   setLoading(true);
@@ -64,9 +63,30 @@ function MyApp({ Component, pageProps }: AppProps) {
   //   };
   // }, []);
 
+  const router = useRouter();
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const handleChangeStart = (url: string) => {
+            if (url === "<root_to_show_loading>") {
+                setIsLoading(true);
+            }
+        };
+
+        const handleChangeEnd = (url: string) => {
+            if (url === "<root_to_show_loading") {
+                setIsLoading(false);
+            }
+        };
+
+        router.events.on("routeChangeStart", handleChangeStart);
+        router.events.on("routeChangeComplete", handleChangeEnd);
+        router.events.on("routeChangeError", handleChangeEnd);
+    }, []);
   return (
     <>
-      {loading ? (
+      {isLoading ? (
       <p>Loading</p>
     ) : (
       <ThirdwebProvider

@@ -6,14 +6,31 @@ import locobukz from "../assets/locobukz.png";
 
 import { checkEligibilityMain } from "../utils/wallet-check/checkEligibilityMain";
 import Claim from "../components/Claim";
+import { useEffect, useState } from "react";
 
 const isServerReq = (req : any) => !req.url.startsWith('/_next');
 
 // @ts-ignore
-const Home: NextPage = ({ wallets}) => {
+const Home: NextPage = ({ wallets }) => {
   const reward = 1;
   const rewardType = "locobox";
   const address = useAddress();
+
+  // const [wallets, setData] = useState();
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const res = await fetch("api/get");
+
+  //     const resData = await res.json();
+
+  //     setData(resData);
+  //   }
+
+  //   getData();
+  // }, []);
+
+  // console.log(wallets);
 
   const eligible = checkEligibilityMain(wallets, String(address), Number(reward));
   
