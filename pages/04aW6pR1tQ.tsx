@@ -19,7 +19,7 @@ const Home: NextPage = () => {
   const { data: wallets, error } = useSWR('api/get', fetcher);
 
   if (error) return <div>failed to load</div>
-  if (!wallets) return <div>loading ...</div>
+  if (!wallets) return <div className={styles.center}><span className={styles.loader}></span></div>
 
   const eligible = checkEligibilityMain(wallets, String(address), Number(reward));
   

@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
-import '../styles/nprogress.css';
 import "../styles/globals.css";
 
 
