@@ -1,13 +1,8 @@
-import dynamic from "next/dynamic";
 import type { AppProps } from "next/app";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
-import NProgress from "nprogress";
 import '../styles/nprogress.css';
 import "../styles/globals.css";
-import { useEffect, useState } from "react";
-import { Router, useRouter } from "next/router";
 
-const ProgressBar = dynamic(() => import('../utils/progress-bar'), { ssr: false });
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
@@ -16,11 +11,9 @@ const activeChain = "mumbai";
 
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [loading, setLoading] = useState(false);
 
   return (
     <>
-      <ProgressBar />
       <ThirdwebProvider
       clientId={process.env.CLIENT_ID}
       // sdkOptions={{
