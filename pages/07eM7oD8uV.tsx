@@ -1,4 +1,6 @@
 import { prisma } from "../lib/prisma";
+import useSWR from 'swr';
+
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image"
@@ -49,13 +51,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-export async function getStaticProps() {
-  const wallets = await prisma.walletAddresses.findMany();
-
-  return {
-    props: { 
-      wallets: JSON.parse(JSON.stringify(wallets))
-     }
-  }
-}

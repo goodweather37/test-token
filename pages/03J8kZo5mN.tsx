@@ -1,4 +1,5 @@
 import { prisma } from "../lib/prisma";
+import useSWR from 'swr';
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image"
