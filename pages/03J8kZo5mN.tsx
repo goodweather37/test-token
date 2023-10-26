@@ -4,14 +4,21 @@ import styles from "../styles/Home.module.css";
 import Image from "next/image"
 import locobukz from "../assets/locobukz.png";
 
+import fetcher from "../utils/fetcher";
 import { checkEligibilityMain } from "../utils/wallet-check/checkEligibilityMain";
 import Claim from "../components/ClaimMission";
 
 // @ts-ignore
-const Home: NextPage = ({ wallets}) => {
+const Home: NextPage = () => {
   const reward = 3;
   const rewardType = "mission";
   const address = useAddress();
+
+  // @ts-ignore
+  const { data: wallets, error } = useSWR('api/get', fetcher);
+
+  if (error) return <div>failed to load</div>
+  if (!wallets) return <div>loading ...</div>
 
   const eligible = checkEligibilityMain(wallets, String(address), Number(reward));
   
@@ -43,12 +50,3 @@ const Home: NextPage = ({ wallets}) => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  const wallets = await prisma.walletAddresses.findMany();
-
-  return {
-    props: { 
-      wallets: JSON.parse(JSON.stringify(wallets))
-     }
-  }
-}

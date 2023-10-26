@@ -5,7 +5,7 @@ export default async function get(req: NextApiRequest, res: NextApiResponse) {
     try {
         const wallets = await prisma.walletAddresses.findMany();
 
-        res.status(200).json(wallets);
+        return res.status(200).json(wallets);
     } catch (error) {
         console.log(error);
     }

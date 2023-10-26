@@ -1,4 +1,5 @@
 import { prisma } from "../lib/prisma";
+import useSWR from 'swr';
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -6,31 +7,19 @@ import locobukz from "../assets/locobukz.png";
 
 import { checkEligibilityMain } from "../utils/wallet-check/checkEligibilityMain";
 import Claim from "../components/Claim";
-import { useEffect, useState } from "react";
-
-const isServerReq = (req : any) => !req.url.startsWith('/_next');
+import fetcher from "../utils/fetcher";
 
 // @ts-ignore
-const Home: NextPage = ({ wallets }) => {
+const Home: NextPage = () => {
   const reward = 1;
   const rewardType = "locobox";
   const address = useAddress();
 
-  // const [wallets, setData] = useState();
+  // @ts-ignore
+  const { data: wallets, error } = useSWR('api/get', fetcher);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const res = await fetch("api/get");
-
-  //     const resData = await res.json();
-
-  //     setData(resData);
-  //   }
-
-  //   getData();
-  // }, []);
-
-  // console.log(wallets);
+  if (error) return <div>failed to load</div>
+  if (!wallets) return <div>loading ...</div>
 
   const eligible = checkEligibilityMain(wallets, String(address), Number(reward));
   
@@ -49,11 +38,18 @@ const Home: NextPage = ({ wallets }) => {
         </div>
       ) : (
         <div>
-            {eligible ? (
+              <>
+                {eligible ? (
+                <Claim wallets={wallets} reward={reward} rewardType={rewardType} />
+                ) : (
+                  <p>You have already claimed the reward, move along sir.</p>
+                )}
+              </>
+            {/* {eligible ? (
               <Claim wallets={wallets} reward={reward} rewardType={rewardType} />
             ) : (
               <p>You have already claimed the reward, move along sir.</p>
-            )}
+            )} */}
         </div>
       )}
     </main>
@@ -62,13 +58,14 @@ const Home: NextPage = ({ wallets }) => {
 
 export default Home;
 
-// @ts-ignore
-export async function getServerSideProps({ req }) {
-  const wallets = isServerReq(req) ? await prisma.walletAddresses.findMany() : null;
+// // @ts-ignore
+// export async function getServerSideProps() {
+//   const wallets = await prisma.walletAddresses.findMany();
 
-  return {
-    props: { 
-      wallets: JSON.parse(JSON.stringify(wallets))
-     }
-  }
-}
+//   return {
+//     props: { 
+//       wallets: JSON.parse(JSON.stringify(wallets))
+//      },
+//      deferOnClientSideNavigation: true,
+//   }
+// }

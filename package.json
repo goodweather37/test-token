@@ -20,7 +20,8 @@
     "next-progress": "^2.3.1",
     "nprogress": "^0.2.0",
     "react": "^18.2",
-    "react-dom": "^18.2"
+    "react-dom": "^18.2",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@types/node": "^18.11.11",
